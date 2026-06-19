@@ -1,8 +1,18 @@
 body{
     margin: 0px;
     padding: 0px;
-    background-color: #dcd2d2;
+	background-color: #dcd2d2;
+	animation:pageFade 1s ease;
 }
+@keyframes pageFade{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
 header{
     display: flex;
     background-color: #b79999;
@@ -12,12 +22,34 @@ header{
     justify-content: space-between;
     align-items: center;
     border-radius: 5px;
+	animation:slideDown 1s ease;
+}
+@keyframes slideDown{
+    from{
+        opacity:0;
+        transform:translateY(-50px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 .logo img{
     width: 50px;
     height: 50px;
     border-radius: 50%;
+	animation:floatLogo 3s ease-in-out infinite;
 }
+@keyframes floatLogo{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
 .logo{
     display: flex;
     align-items: center;
@@ -36,7 +68,24 @@ header{
 .nav a{
     color: white;
     text-decoration: none;
+	position:relative;
+    transition:0.4s;
 }
+.nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0;
+    height:2px;
+    background:black;
+    transition:0.4s;
+}
+
+.nav a:hover::after{
+    width:100%;
+}
+
 .nav a:hover{
     color: black;
     font-weight: bold;
@@ -51,10 +100,12 @@ header{
     align-items: center;
     gap: 10px;
     color: white;
+	transition:.4s;
 }
 .phone:hover{
-    color: rgb(210, 199, 199);
+    color: black;
     font-weight: bold;
+	transform:scale(1.05);
 }
 .user img{
     width: 20px;
@@ -66,7 +117,12 @@ header{
     align-items: center;
     gap: 10px;
     color: black;
+	transition:.4s;
 }
+.user:hover{
+    transform:scale(1.05);
+}
+
 .user a{
     color: white;
     text-decoration: none;
@@ -79,17 +135,22 @@ header{
     font-weight: bold;
 }
 .add button{
-   padding: 10px 20px;
-    background-color: rgb(220, 141, 84);
+   	padding: 10px 20px;
+    background-color: #b79999;
     color: white;
     border-radius: 10px;
     cursor: pointer;
     border :2px solid black;
+	transition:.4s;
 }
 .add button:hover{
-    background-color: rgb(220, 141, 84);
+    background-color: rgb(176, 131, 131);
     color: black;
     font-weight: bold;
+	transform:translateY(-5px);
+
+    box-shadow:
+    0 10px 20px rgba(0,0,0,.3);
 }
 .main{
     background-image:url('./background1.jpg');
@@ -100,6 +161,51 @@ header{
     justify-content: center;
     display: flex;
     flex-direction: column;
+    text-align: center;
+    padding: 0 20px;
+}
+.main p{
+    color:black;
+    font-size:18px;
+    max-width: 900px;
+
+    animation:fadeUp 1.5s ease;
+}
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(50px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+.typing{
+    color:black;
+    font-size: clamp(25px, 6vw, 55px);
+    font-weight: bold;
+    overflow:hidden;
+    white-space:nowrap;
+    border-right:none;
+    animation:
+        typing 3s steps(21,end) forwards,
+        blink .7s infinite;
+}
+@keyframes typing{
+    from{
+        width:0;
+    }
+
+    to{
+        width:21ch;
+    }
+}
+@keyframes blink{
+    50%{
+        border-color:transparent;
+    }
 }
 .items{
     display: flex;
@@ -114,23 +220,61 @@ header{
     justify-content: center;
     background-color: #a39292;
     padding: 10px;
-    margin: 5px 10px;
+    margin: 5px;
     border-radius: 10px;
+	transition:.5s;
+    animation:cardAppear 1s ease forwards;
 }
+.item-1:nth-child(2){
+    animation-delay:.2s;
+}
+
+.item-1:nth-child(3){
+    animation-delay:.4s;
+}
+
+.item-1:nth-child(4){
+    animation-delay:.6s;
+}
+
+@keyframes cardAppear{
+    from{
+        opacity:0;
+        transform:translateY(60px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
 .item-1 img{
     width: 70px;
     height: 70px;
     border-radius: 5px;
+	transition:.5s;
+}
+.item-1:hover img{
+    transform:
+        scale(1.1)
+        rotate(10deg);
 }
 .item-1:hover{
-    background-color: #695555;
+    background-color: #8f8080;
     cursor: pointer;
+	transform:
+        translateY(-15px)
+        scale(1.05);
+
+    box-shadow:0 15px 25px rgba(79, 75, 75, 0.3);
 }
 .featured-listings{
     display: flex;
     justify-content: center;
     margin-top: 20px;
     align-items: center;
+  	animation:fadeUp 1.2s ease;
 }
 .footer{
     background-color: #a39292;
@@ -138,11 +282,33 @@ header{
     margin: 5px;
     border-radius: 5px;
     color: white;
-
+	animation:footerUp 1.5s ease;
 }
-.footer-section.about li a{
+@keyframes footerUp{
+    from{
+        opacity:0;
+        transform:translateY(60px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+.footer-section.about li{
     color: white;
     text-decoration: none;
+    list-style-position: inside;
+}
+.footer-section.about a{
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.footer-section.about a:hover{
+    color:rgb(78, 76, 76);
+    padding-left:8px;
 }
 @media screen and (max-width:1024px){
 
@@ -230,6 +396,14 @@ header{
         justify-content:center;
         gap:15px;
     }
+    .items{
+        flex-wrap:wrap;
+        gap:20px;
+        justify-content: center;
+    }
+    .item-1{
+        width:180px;
+    }
 
     .contact-user{
         display:flex;
@@ -276,6 +450,13 @@ header{
     .add button{
         width:150px;
     }
+    .typing{
+        font-size: 40px;
+    }
+
+    .main p{
+        font-size: 16px;
+    }
 
 }
 @media screen and (max-width:364px){
@@ -295,5 +476,22 @@ header{
     .add button{
         width:130px;
         font-size:14px;
+    }
+    .items{
+        flex-direction: column;
+        gap:20px;
+    }
+    .item-1{
+        width:90%;
+    }
+    .typing{
+        font-size: 28px;
+        white-space: normal;
+        border-right: none;
+        animation: fadeUp 1s ease;
+    }
+
+    .main p{
+        font-size: 14px;
     }
 }
